@@ -1,6 +1,7 @@
 """
 Contains the wrapper that turns a function into one that we execute.
 """
+import inspect
 import typing
 
 
@@ -31,6 +32,11 @@ class _DRunnableObject:
         """
         return self.func(*self.args, **self.kwargs)
 
+    def __repr__(self):
+        # construct the qualname
+        name = inspect.getmodule(self.func).__name__ + "." + self.func.__qualname__
+        return "<_DRunnableObject for {}>".format(name)
+
 
 class DFunction:
     """
@@ -44,7 +50,7 @@ class DFunction:
             raise TypeError("Object must be a callable")
         self._callable = callable_
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> _DRunnableObject:
         """
         Returns a _DRunnableObject which is actually ran by the engine loop.
 
@@ -56,7 +62,7 @@ class DFunction:
         return _DRunnableObject(self._callable, args, kwargs)
 
 
-def with_engine(function: typing.Callable):
+def with_engine(function: typing.Callable) -> DFunction:
     """
     Decorator that marks a function as running with the Danny engine.
 
