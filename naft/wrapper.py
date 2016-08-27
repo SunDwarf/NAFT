@@ -15,6 +15,7 @@ class _NRunnableObject:
     def __init__(self, fun, args, kwargs):
         self.func = fun
         self.args = args
+        # TODO: Add proper kwargs support.
         self.kwargs = kwargs
 
     def run_natively(self):
@@ -31,6 +32,34 @@ class _NRunnableObject:
         :return: The result of the function.
         """
         return self.func(*self.args, **self.kwargs)
+
+    def get_data(self) -> typing.Tuple[tuple, tuple, tuple]:
+        """
+        :return: Data about the function, like consts, names, and varnames.
+        """
+        code = self.func.__code__
+        return code.co_consts, code.co_names, code.co_varnames
+
+    def get_varnames_filled_in(self):
+        """
+        Gets the filled in varnames.
+
+        This uses the args, and kwargs, to fill in varnames.
+        :return: A tuple of varnames, which are filled with the arguments.
+        """
+        # TODO: Add proper kwargs support.
+        # This is a temporary raise until I add proper keyword argument filling in.
+        if self.kwargs:
+            raise NotImplementedError("Keyword arguments are not implemented yet")
+        # Calculate the number of arguments.
+        if not self.func.__defaults__:
+            n_defaults = 0
+        else:
+            n_defaults = len(self.func.__defaults__)
+        no_of_args = self.func.__code__.co_argcount - n_defaults
+        if no_of_args != len(self.args):
+            raise TypeError("{}() takes {} positional arguments but {} were given".format(self.func.__qualname__,
+                                                                                          no_of_args, len(self.args)))
 
     def __repr__(self):
         # construct the qualname
