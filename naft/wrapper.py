@@ -5,7 +5,7 @@ import inspect
 import typing
 
 
-class _DRunnableObject:
+class _NRunnableObject:
     """
     The actual runnable object.
 
@@ -21,11 +21,11 @@ class _DRunnableObject:
         """
         Runs a function natively.
 
-        Used when you wish to override the Danny engine from a non-Danny function.
+        Used when you wish to override the NAFT engine from a non-NAFT function.
 
         .. warning::
 
-            If this is called inside a Danny function, it is functionally equivalent to just calling the function,
+            If this is called inside a NAFT function, it is functionally equivalent to just calling the function,
             due to how the engine processes function calls recursively.
 
         :return: The result of the function.
@@ -50,7 +50,7 @@ class DFunction:
             raise TypeError("Object must be a callable")
         self._callable = callable_
 
-    def __call__(self, *args, **kwargs) -> _DRunnableObject:
+    def __call__(self, *args, **kwargs) -> _NRunnableObject:
         """
         Returns a _DRunnableObject which is actually ran by the engine loop.
 
@@ -59,17 +59,17 @@ class DFunction:
 
         :return: A :class:`_DRunnableObject` which can be sent into the object for executing.
         """
-        return _DRunnableObject(self._callable, args, kwargs)
+        return _NRunnableObject(self._callable, args, kwargs)
 
 
 def with_engine(function: typing.Callable) -> DFunction:
     """
-    Decorator that marks a function as running with the Danny engine.
+    Decorator that marks a function as running with the NAFT engine.
 
     This returns a wrapper which, when run with ``engine.run_function(func(*args, **kwargs))``, will be executed by
-    Danny.
+    NAFT.
 
     :param function: The function to wrap.
-    :return: A :class:`danny.wrapper.DFunction`, which is then used by the engine.
+    :return: A :class:`naft.wrapper.DFunction`, which is then used by the engine.
     """
     return DFunction(function)

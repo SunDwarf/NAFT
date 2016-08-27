@@ -3,7 +3,7 @@ This is a terrible idea.
 """
 
 
-__title__ = 'Danny'
+__title__ = 'NAFT'
 __author__ = 'Isaac Dickinson'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2016 Isaac Dickinson'
