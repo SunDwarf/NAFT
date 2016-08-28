@@ -67,7 +67,7 @@ class _NRunnableObject:
         return "<_DRunnableObject for {}>".format(name)
 
 
-class DFunction:
+class NFunction:
     """
     Class returned by ``with_engine``.
 
@@ -91,7 +91,7 @@ class DFunction:
         return _NRunnableObject(self._callable, args, kwargs)
 
 
-def with_engine(function: typing.Callable) -> DFunction:
+def with_engine(function: typing.Callable) -> NFunction:
     """
     Decorator that marks a function as running with the NAFT engine.
 
@@ -101,4 +101,4 @@ def with_engine(function: typing.Callable) -> DFunction:
     :param function: The function to wrap.
     :return: A :class:`naft.wrapper.DFunction`, which is then used by the engine.
     """
-    return DFunction(function)
+    return NFunction(function)
