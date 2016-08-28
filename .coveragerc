@@ -1,0 +1,4 @@
+[run]
+omit =
+    # omit backports
+    naft/backports/*.py

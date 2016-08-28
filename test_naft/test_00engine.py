@@ -15,7 +15,7 @@ def some_func(a):
 
 
 def test_python_is_sane():
-    assert True
+    assert True, "what"
 
 
 def test_function_is_wrapped():
