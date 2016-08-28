@@ -7,6 +7,13 @@ from naft import signals
 from naft.state import FunctionState
 
 
+def handle_op_1(state: FunctionState, instruction: dis.Instruction):
+    """
+    Handles POP_TOP.
+    """
+    state.pop()
+
+
 def handle_op_83(state: FunctionState, instruction: dis.Instruction):
     """
     Handles RETURN_VALUE.
