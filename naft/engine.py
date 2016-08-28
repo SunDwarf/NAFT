@@ -52,7 +52,9 @@ class NAFTEngine(object):
         Work function for running an instruction.
         """
         opcode, opname = instruction.opcode, instruction.opname
-        self.logger.debug("Running operation {}:{} at line {}".format(opcode, opname, instruction.starts_line))
+        self.logger.debug("Running operation {}:{} at line {} in function {}".format(opcode, opname,
+                                                                                     instruction.starts_line,
+                                                                                     state.func.__name__))
 
         # Get the op function.
         func = find_operator_implementation(opcode)
@@ -88,11 +90,12 @@ class NAFTEngine(object):
 
         # Create the function state.
         # Merge globals and builtins.
-        globs = globals().copy()
+        globs = f.__globals__.copy()
         globs.update(__builtins__)
         state = FunctionState(f, consts, names, varnames, globs)
 
         state.engine = self
+        state.func = f
 
         # Fill in the state.
         for position, item in enumerate(filled_in_data):
