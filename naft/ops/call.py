@@ -23,7 +23,7 @@ def handle_op_131(state: FunctionState, instruction: dis.Instruction):
         args.append(state.pop())
 
     # Reverse the args.
-    args = reversed(args)
+    args = list(reversed(args))
     # Pop the function.
     func = state.pop()
     if isinstance(func, NFunction):
