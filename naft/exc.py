@@ -16,13 +16,22 @@ class BadOpcode(SystemError):
     :param function: The function we're attempting to run. This is probably a :class:`_NRunnableObject` rather than
     the real function.
     """
+
     def __init__(self, instruction: dis.Instruction, function):
         self.instruction = instruction
         self.function = function
 
     def __repr__(self):
-        base = "{}: Unable to parse opcode `{}`.\n\nThis is probably not a bug! The chances are that the opcode has " \
-               "not been implemented yet.".format(self.__class__.__name__, self.instruction.opname)
+        base = "Unable to parse opcode `{}:{}`.\nThis is probably not a bug! The chances are that the opcode has " \
+               "not been implemented yet.".format(self.instruction.opcode, self.instruction.opname)
         return base
 
     __str__ = __repr__
+
+
+class BadPopException(IndexError):
+    """
+    Called when the function stack wasn't complete.
+
+    This often means a bug in NAFT.
+    """

@@ -27,8 +27,13 @@ def test_function_returns_nrunnable():
     assert some_func(1).run_natively() == 1
 
 
-@pytest.mark.xfail
+def test_simple_run():
+    engine = NAFTEngine()
+    assert engine.run_function(some_func(2)) == 2
+
+
+@pytest.mark.xfail(reason="Passed no arguments", strict=True)
 def test_too_many_args():
     # Create the engine to be used.
     engine = NAFTEngine()
-    assert not some_func()
+    assert not engine.run_function(some_func())

@@ -60,8 +60,9 @@ class _NRunnableObject:
         if no_of_args != len(self.args):
             raise TypeError("{}() takes {} positional arguments but {} were given".format(self.func.__qualname__,
                                                                                           no_of_args, len(self.args)))
+        return self.args
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         # construct the qualname
         name = inspect.getmodule(self.func).__name__ + "." + self.func.__qualname__
         return "<_DRunnableObject for {}>".format(name)
