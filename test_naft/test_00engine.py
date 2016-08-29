@@ -14,6 +14,11 @@ def some_func(a):
     return a
 
 
+@with_engine
+def some_other_func(a, b):
+    return some_func(a), b
+
+
 def test_python_is_sane():
     assert True, "what"
 
@@ -30,6 +35,11 @@ def test_function_returns_nrunnable():
 def test_simple_run():
     engine = NAFTEngine()
     assert engine.run_function(some_func(2)) == 2
+
+
+def test_chained_function_calls():
+    engine = NAFTEngine()
+    assert engine.run_function(some_other_func(1, 2)) == (1, 2)
 
 
 @pytest.mark.xfail(reason="Passed no arguments", strict=True)

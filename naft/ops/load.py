@@ -3,6 +3,7 @@ Handling for LOAD_ opcodes.
 """
 import dis
 
+from naft.exceptions.base import NFNameError
 from naft.state import FunctionState, NAFT_NULL
 
 
@@ -19,7 +20,7 @@ def handle_op_116(state: FunctionState, instruction: dis.Instruction):
     # Look up the global in the globals.
     if val not in globals:
         # Raise a NameError.
-        raise NameError("name '{}' is not defined".format(val))
+        raise NFNameError("name '{}' is not defined".format(val))
     # Push it onto the stack.
     state.push(globals[val])
 

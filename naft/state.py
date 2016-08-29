@@ -3,9 +3,8 @@ Contains the "state" for the function currently running.
 """
 
 import collections
-import inspect
 
-from naft.exc import BadPopException
+from naft.exceptions.internal import BadPopException
 
 # "Special" value.
 # Used to signify a null value in the names or varnames.
@@ -46,6 +45,9 @@ class FunctionState:
 
         # The current NAFTEngine that the state is associated with.
         self.engine = None
+
+        # The current line number.
+        self.line_no = 0
 
     def pop(self):
         """

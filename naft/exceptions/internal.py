@@ -1,5 +1,7 @@
 """
-Exception files.
+Internal exceptions.
+
+This aren't used for exception magic, but rather for actually signifying an error.
 """
 import dis
 

@@ -3,7 +3,7 @@
 """
 import dis
 
-from naft import signals
+from naft.exceptions import signals
 from naft.state import FunctionState
 
 
